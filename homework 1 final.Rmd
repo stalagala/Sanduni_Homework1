@@ -8,7 +8,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-setwd("~/Desktop/bi612/612Homework1")
+setwd("~/Desktop/bi612/homework1test")
 ```
 
 ## R Markdown
@@ -43,7 +43,7 @@ MeanDifference2
 
 **Question 4: Historgram for common strand**
 ```{r}
-hist(Common_strain)
+hist(Common_strain, main="Histogram of hydrogen peroxide in common strain plant",xlab="concentration of hydrogen peroxide (μmoles/g)", ylab="frequency")
 ```
 
 **Question 5: Growth rate data frame**
@@ -64,7 +64,7 @@ Yes,fungal growth rate increases with hyghdrogen peroxide concentration. This di
 
 **Question 8: Read CSV**
 ```{r}
-Turtles=read.csv("612Homework1TurtleSuccess.csv", encoding = getOption("encoding"))
+Turtles=read.csv("612Homework1TurtleSuccess.csv")
 Turtles
 ```
 
@@ -74,42 +74,38 @@ my.table<-table(Turtles)
 my.table
 ```
 
-**Question 10: Barplot**
+**Question 10: Barplot** 
+--------->Please note that here I created another table (Turtles2) with excel shown below as it is suggested in the tutorial to arrange the data in a specific way for ggplot and make another table.
 ```{r}
 library(ggplot2)
-Turtles2=read.csv("612Homework1Barplot.csv", encoding = getOption("encoding"))
+Turtles2=read.csv("612Homework1Barplot.csv")
 Turtles2
 
 ggplot(data=Turtles2, aes(x=Species, y=Counts, fill=NestingStatus)) + geom_bar(stat="identity", position=position_dodge()) + scale_fill_manual(values = c("red","green"))+
-  labs(x="Species",y="Turtle counts")
+  labs(x="Species",y="Aborted or successful nesting attempts of turtles (counts)")+ ggtitle ("Nesting attempts of three species of turtles")
 ```
 
 
 
 **Question 11: Mean and standard deviation**
 ```{r}
-Turtles3=read.csv("SuccessTurtle.csv", encoding = getOption("encoding"))
-Turtles3
-TurtlesMeans=mean(Turtles3$Success)
-TurtlesMeans
+MeanSuccess = mean(my.table[2,])
+MeanSuccess
 
-TurtlesSD = sd(Turtles3$Success)
-TurtlesSD
+SDSuccess = sd(my.table[2,])
+SDSuccess
 ```
 
 **Question 12: Proportions: Code**
 ```{r}
-pFailedOliveRidely = my.table[1,3]/
-  
-  
-  (Turtles3$Aborted[1])/((Turtles3$Aborted[1])+(Turtles3$Success[1]))
+pFailedOliveRidely = my.table[1,3]/(sum(my.table[1,3],my.table[2,3]))
 pFailedOliveRidely
 
-pFailedHawksbill = (Turtles3$Aborted[2])/((Turtles3$Aborted[2])+(Turtles3$Success[2]))
-pFailedHawksbill
-
-pFailedLeatherback = (Turtles3$Aborted[3])/((Turtles3$Aborted[3])+(Turtles3$Success[3]))
+pFailedLeatherback = my.table[1,2]/(sum(my.table[1,2],my.table[2,2]))
 pFailedLeatherback
+
+pFailedHawksbill = my.table[1,1]/(sum(my.table[1,1],my.table[2,1]))
+pFailedHawksbill
 ```
 
 **Question 12: Conservation efforts: explanation**
