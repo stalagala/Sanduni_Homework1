@@ -1,0 +1,138 @@
+---
+title: "Homework 1"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd("~/Desktop/bi612/612Homework1")
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+**Qustion 1: Creating vectors**
+```{r}
+Transgenic_strain_A = c(0.17,0.20,0.13,0.20,0.24,0.25,0.15,0.21,0.21)
+Transgenic_strain_B = c(0.47,0.21,0.34,0.32,0.33,0.29,0.18,0.20,0.25)
+Common_strain = c(0.44,0.33,0.37,0.33,0.31,0.27,0.22,0.30,0.28)
+```
+
+
+**Question 2: Difference of means**
+```{r}
+MeanTransA<-mean(Transgenic_strain_A)
+MeanTransB<-mean(Transgenic_strain_B)
+MeanDifference<-MeanTransA-MeanTransB
+MeanDifference
+```
+
+**Question 3: Difference of means**
+```{r}
+MeanCommon<-mean(Common_strain)
+MeanDifference2<-MeanCommon-MeanTransA
+MeanDifference2
+```
+
+**Question 4: Historgram for common strand**
+```{r}
+hist(Common_strain)
+```
+
+**Question 5: Growth rate data frame**
+```{r}
+Hydrogen_Peroxide_Concentration = c(0.27,0.21,0.34,0.32,0.24,0.29,0.18,0.20,0.29)
+Fungal_Growth_Rate = c(1.79,1.01,1.71,1.89,1.41,1.15,1.13,1.20,1.10)
+Peroxide_Growth=data.frame('Peroxide' = Hydrogen_Peroxide_Concentration, 'Growth.rate' = Fungal_Growth_Rate)
+Peroxide_Growth
+```
+
+**Question 6: Scatter plot of fungal growth due to peroxide**
+```{r}
+plot(Peroxide_Growth$Peroxide,Peroxide_Growth$Growth.rate,xlab='Hydrogen peroxide concentration (μmoles/g)',ylab='Fungal growth rate (cm/day)',main='Hydrogen peroxide concentration vs fungal growth')
+```
+
+**Question 7: Hypothesis testing**
+Yes,fungal growth rate increases with hyghdrogen peroxide concentration. This disagrees with the hypothesis.
+
+**Question 8: Read CSV**
+```{r}
+Turtles=read.csv("612Homework1TurtleSuccess.csv", encoding = getOption("encoding"))
+Turtles
+```
+
+**Question 9: Contingency table**
+```{r}
+my.table<-table(Turtles)
+my.table
+```
+
+**Question 10: Barplot**
+```{r}
+library(ggplot2)
+Turtles2=read.csv("612Homework1Barplot.csv", encoding = getOption("encoding"))
+Turtles2
+
+ggplot(data=Turtles2, aes(x=Species, y=Counts, fill=NestingStatus)) + geom_bar(stat="identity", position=position_dodge()) + scale_fill_manual(values = c("red","green"))+
+  labs(x="Species",y="Turtle counts")
+```
+
+
+
+**Question 11: Mean and standard deviation**
+```{r}
+Turtles3=read.csv("SuccessTurtle.csv", encoding = getOption("encoding"))
+Turtles3
+TurtlesMeans=mean(Turtles3$Success)
+TurtlesMeans
+
+TurtlesSD = sd(Turtles3$Success)
+TurtlesSD
+```
+
+**Question 12: Proportions: Code**
+```{r}
+pFailedOliveRidely = my.table[1,3]/
+  
+  
+  (Turtles3$Aborted[1])/((Turtles3$Aborted[1])+(Turtles3$Success[1]))
+pFailedOliveRidely
+
+pFailedHawksbill = (Turtles3$Aborted[2])/((Turtles3$Aborted[2])+(Turtles3$Success[2]))
+pFailedHawksbill
+
+pFailedLeatherback = (Turtles3$Aborted[3])/((Turtles3$Aborted[3])+(Turtles3$Success[3]))
+pFailedLeatherback
+```
+
+**Question 12: Conservation efforts: explanation**
+OliveRidley turtles had a faliure proportion of 0.2, whole Hawksbill had 0.43 and Leatherback had 0.33 proportion of faliure. This means that Hawksbill turtles had the biggest proortion of failed attempts at netsting out of all the attempts, making them the speacies that needs the most conservation efforts
+
+**Question 13:Import nest egg counts**
+```{r}
+EggCount=read.csv("NestEgg.csv", encoding = getOption("encoding"))
+EggCount
+
+```
+
+**Question 14: Boxplot**
+```{r}
+boxplot(EggCount$OliveRidley,EggCount$Hawksbill,EggCount$Leatherback,names=c("Olive Ridley",
+"Hawksbill","Leatherback"),main="Eggs laid by different species in observed nests",
+ylab='Number of eggs (count)',xlab='Species',col=
+c('red','blue','green'))
+ 
+```
+
+**Question 15: Scatterplot Hawksbill turtle eggs vs leatherback turtle eggs**
+```{r}
+plot(EggCount$Hawksbill,EggCount$Leatherback,xlab='Hawksbill eggs in the nests (count)',ylab='Leatherback eggs in the nests (count)',main='Scatter plot of Hawksbill eggs vs Leatherback eggs')
+```
+
