@@ -60,7 +60,7 @@ plot(Peroxide_Growth$Peroxide,Peroxide_Growth$Growth.rate,xlab='Hydrogen peroxid
 ```
 
 **Question 7: Hypothesis testing**
-Yes,fungal growth rate increases with hyghdrogen peroxide concentration. This disagrees with the hypothesis.
+Yes,fungal growth rate increases with hydrogen peroxide concentration. This disagrees with the hypothesis.
 
 **Question 8: Read CSV**
 ```{r}
